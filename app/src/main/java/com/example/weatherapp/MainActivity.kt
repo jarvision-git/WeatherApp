@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                 val placeResponse = placesClient.findCurrentPlace(request)
                 placeResponse.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+
                         val response = task.result
                         for (placeLikelihood: PlaceLikelihood in response?.placeLikelihoods ?: emptyList()) {
 
