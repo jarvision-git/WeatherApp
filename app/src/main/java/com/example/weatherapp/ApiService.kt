@@ -1,30 +1,27 @@
 package com.example.weatherapp
 
+import com.example.weatherapp.models.WResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
 
-private const val BASE_URL =
-    "https://run.mocky.io/v3/"
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
-    .build()
+const val BASE_URL =
+    "https://api.openweathermap.org/data/"
 
-interface MarsApiService {
-    @GET("7ad62fa6-b164-487a-9b24-fe7d2204f220")
-    suspend fun getPhotos(): List<detail>
+const val API_ID: String="df4f7d273c3a81161dbb04ec23634f02"
+
+interface WeatherApiService {
+    @GET("2.5/weather")
+    fun getWeather(
+        @Query("lat") lat :Double?,
+        @Query("lon") lon:Double?,
+        @Query("appid") appid :String?,
+    ) : Call<WResponse>
 }
 
-object MarsApi {
-    val retrofitService : MarsApiService by lazy {
-        retrofit.create(MarsApiService::class.java)
-    }
-
-}

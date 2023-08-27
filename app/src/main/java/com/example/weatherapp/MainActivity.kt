@@ -8,12 +8,21 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.example.weatherapp.databinding.ActivityMainBinding
+import com.example.weatherapp.models.WResponse
+import com.example.weatherapp.models.Weather
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.PlaceLikelihood
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -79,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                             )
                             mLatitude = placeLikelihood.place.latLng.latitude
                             mLongitude = placeLikelihood.place.latLng.longitude
+                            getWeatherDetails()
                             break
                         }
 
@@ -102,5 +112,48 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+
+
     }
+
+    private fun getWeatherDetails() {
+
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+
+
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .baseUrl(BASE_URL)
+            .build()
+
+        val service: WeatherApiService=retrofit.create<WeatherApiService>(WeatherApiService::class.java)
+
+        Log.d("verification :","${mLatitude},${mLatitude}")
+        val listCall: Call<WResponse> = service.getWeather(mLatitude,mLongitude,API_ID)
+
+
+        listCall.enqueue(object: Callback<WResponse>{
+            override fun onResponse(call: Call<WResponse>, response: Response<WResponse>) {
+                if (response!!.isSuccessful){
+                    val weatherList : WResponse? = response.body()
+                    Log.i("Response Result","$weatherList")
+                }
+                else{
+                    Log.v("Response Error","${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<WResponse>, t: Throwable) {
+                Log.v("Errorrrrrr","${t!!.message.toString()}")
+            }
+        })
+
+
+
+    }
+
+
 }

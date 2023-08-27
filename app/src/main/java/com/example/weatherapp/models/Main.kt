@@ -3,13 +3,10 @@ package com.example.weatherapp.models
 import java.io.Serializable
 
 data class Main(
-    val temp: Int,
-    val feels_like:Int,
-    val tempMin: Int,
-    val tempMax: Int,
+    val temp: Double,
+    val feels_like:Double,
+    val temp_min: Double,
+    val temp_max: Double,
     val pressure: Int,
-    val humidity: Int,
-    val sea_level:Int,
-    val grnd_level:Int
-
+    val humidity: Int
 ) : Serializable
