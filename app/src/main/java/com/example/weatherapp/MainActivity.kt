@@ -1,6 +1,7 @@
 package com.example.weatherapp
 
 import android.Manifest
+import android.app.Dialog
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
     private var mLatitude:Double=0.0
     private var mLongitude:Double=0.0
+
+    private var mProgressDialog: Dialog?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         binding=ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -59,8 +62,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+            showProgressDialog()
 
-        binding.btnCurrent.setOnClickListener {
 
             val placeFields: List<Place.Field> = listOf(Place.Field.NAME,Place.Field.LAT_LNG)
 
@@ -111,7 +114,7 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-        }
+
 
 
 
@@ -135,9 +138,11 @@ class MainActivity : AppCompatActivity() {
         val listCall: Call<WResponse> = service.getWeather(mLatitude,mLongitude,API_ID)
 
 
+
         listCall.enqueue(object: Callback<WResponse>{
             override fun onResponse(call: Call<WResponse>, response: Response<WResponse>) {
                 if (response!!.isSuccessful){
+                    hideDialog()
                     val weatherList : WResponse? = response.body()
                     Log.i("Response Result","$weatherList")
                 }
@@ -147,13 +152,30 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<WResponse>, t: Throwable) {
+                hideDialog()
                 Log.v("Errorrrrrr","${t!!.message.toString()}")
             }
         })
 
 
 
+
     }
+
+    private fun showProgressDialog(){
+        mProgressDialog=Dialog(this)
+
+        mProgressDialog!!.setContentView(R.layout.dialog_custom_progress)
+
+        mProgressDialog!!.show()
+    }
+
+    private fun hideDialog(){
+        if(mProgressDialog!=null) {
+            mProgressDialog!!.dismiss()
+        }
+    }
+
 
 
 }
