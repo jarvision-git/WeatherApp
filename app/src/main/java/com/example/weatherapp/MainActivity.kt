@@ -120,6 +120,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun setupUI(weatherList:WResponse){
+        for( i in weatherList.weather.indices){
+            Log.i("Weather Name :",weatherList.weather.toString())
+
+
+        }
+
+    }
+
+
     private fun getWeatherDetails() {
 
         val moshi = Moshi.Builder()
@@ -144,6 +154,7 @@ class MainActivity : AppCompatActivity() {
                 if (response!!.isSuccessful){
                     hideDialog()
                     val weatherList : WResponse? = response.body()
+                    setupUI(weatherList!!)
                     Log.i("Response Result","$weatherList")
                 }
                 else{
