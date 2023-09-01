@@ -124,6 +124,9 @@ class MainActivity : AppCompatActivity() {
         for( i in weatherList.weather.indices){
             Log.i("Weather Name :",weatherList.weather.toString())
 
+            binding.tvMain.text=weatherList.weather[i].main
+            binding.tvMainDescription.text=weatherList.weather[i].description
+            binding.tvTemp.text=weatherList.main.temp.toString()+ " °C"
 
         }
 
