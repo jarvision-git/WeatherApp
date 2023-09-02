@@ -92,11 +92,12 @@
                         android:gravity="right"
                         />
                     <TextView
+                        android:gravity="right"
                         android:id="@+id/tv_humidity"
                         android:layout_width="match_parent"
                         android:layout_height="35sp"
-                        android:text="per cent"
-                        android:textSize="20sp"
+                        android:text="%"
+                        android:textSize="22sp"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -146,6 +147,7 @@
                         android:gravity="right"
                         />
                     <TextView
+                        android:gravity="right"
                         android:id="@+id/tv_max"
                         android:layout_width="match_parent"
                         android:layout_height="35sp"
@@ -191,6 +193,7 @@
                         android:gravity="right"
                         />
                     <TextView
+                        android:gravity="right"
                         android:id="@+id/tv_speed_unit"
                         android:layout_width="match_parent"
                         android:layout_height="35sp"
@@ -210,6 +213,7 @@
         >
 
         <LinearLayout
+            android:layout_margin="10sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -229,6 +233,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvName"
                     android:layout_marginRight="5sp"
                     android:layout_width="match_parent"
                     android:layout_height="35sp"
@@ -239,6 +244,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvCountry"
                     android:layout_marginRight="5sp"
 
                     android:layout_width="match_parent"
@@ -327,6 +333,7 @@
         android:layout_gravity="center"
         >
         <LinearLayout
+            android:layout_margin="10sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">

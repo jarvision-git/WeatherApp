@@ -132,7 +132,12 @@ class MainActivity : AppCompatActivity() {
             binding.tvTemp.text=weatherList.main.temp.toString()+ " °C"
             binding.tvSunriseTime.text=time(weatherList.sys.sunrise)
             binding.tvSunsetTime.text=time(weatherList.sys.sunset)
-
+            binding.tvMax.text=weatherList.main.temp_max.toString()
+            binding.tvMin.text=weatherList.main.temp_min.toString()
+            binding.tvHumidity.text=weatherList.main.humidity.toString() + "%"
+            binding.tvName.text=weatherList.name
+            binding.tvCountry.text=weatherList.sys.country
+            binding.tvSpeed.text=weatherList.wind.speed.toString()
         }
 
     }
