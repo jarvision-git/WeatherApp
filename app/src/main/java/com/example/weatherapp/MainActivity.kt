@@ -24,7 +24,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 class MainActivity : AppCompatActivity() {
     private lateinit var placesClient: PlacesClient
@@ -127,6 +130,8 @@ class MainActivity : AppCompatActivity() {
             binding.tvMain.text=weatherList.weather[i].main
             binding.tvMainDescription.text=weatherList.weather[i].description
             binding.tvTemp.text=weatherList.main.temp.toString()+ " °C"
+            binding.tvSunriseTime.text=time(weatherList.sys.sunrise)
+            binding.tvSunsetTime.text=time(weatherList.sys.sunset)
 
         }
 
@@ -183,6 +188,14 @@ class MainActivity : AppCompatActivity() {
 
         mProgressDialog!!.show()
     }
+
+    private fun time(timex:Long):String?{
+        val date= Date(timex * 1000L)
+        val sdf=SimpleDateFormat("HH:mm",Locale.UK)
+        sdf.timeZone= TimeZone.getDefault()
+        return sdf.format(date)
+    }
+
 
     private fun hideDialog(){
         if(mProgressDialog!=null) {

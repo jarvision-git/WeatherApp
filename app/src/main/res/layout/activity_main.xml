@@ -323,7 +323,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="80sp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         >
         <LinearLayout
@@ -331,23 +331,51 @@
             android:layout_height="match_parent"
             android:gravity="center">
 
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
 
                 android:layout_width="80sp"
-                android:layout_height="match_parent"
+                android:layout_height="60sp"
                 android:src="@drawable/sunrise"
                 android:layout_marginRight="20sp"
                 />
 
+            <TextView
+                android:id="@+id/tvSunriseTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sunrise"
+                android:textSize="18sp"/>
+        </LinearLayout>
 
 
-            <ImageView
-                android:layout_width="80sp"
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/sunset"
-                />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+
+                    android:layout_width="80sp"
+                    android:layout_height="60sp"
+                    android:src="@drawable/sunset"
+                    android:layout_marginRight="20sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvSunsetTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="sunset"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
         </LinearLayout>
 
